@@ -1,0 +1,1627 @@
+meta {
+    title: "Microsoft Map Paint Style";
+    author: "Snehit Tadepalli";
+    version: "0.0.1";
+    watch-modified: true;
+    description: "A map paint style for JOSM editor developed by Microsoft team.";
+    link: "https://github.com/Snehit_Tadepalli/microsoft-osm-paint-styles";
+}
+
+/* Track your self setting */
+setting::track_your_self {
+  type: boolean;
+  label: tr("Track Your Self");
+  default: true;
+}
+
+/* Unuploaded modifications */
+setting::unupload_modified {
+  type: boolean;
+  label: tr("Unuploaded modifications");
+  default: true;
+}
+
+/* Destination Signs */
+setting::destination_signs {
+  type: boolean;
+  label: tr("Destination Signs");
+  default: true;
+}
+
+/* Global max speed settings */
+setting::max_speeds {
+  type: boolean;
+  label: tr("Toggle Max speeds");
+  default: true;
+  group: "max_speed__settings";
+}
+
+/* Max speed settings specific to RU */
+setting::max_speeds_RU {
+  type: boolean;
+  label: tr("Support maxspeed=RU:* tagging scheme");
+  default: true;
+  group: "max_speed__settings";
+}
+
+/* -------------------Must add "username" tag in JOSM advanced preferences--------------- */
+node[osm_user_name() == JOSM_pref(username, "")],
+way[osm_user_name() == JOSM_pref(username, "")],
+relation[osm_user_name() == JOSM_pref(username, "")] {
+  set .msft_user;
+}
+
+/* To group Max speed settings */
+settings::max_speed__settings {
+    label: tr("Max Speeds");
+}
+
+/* To group node specific settings */
+settings::node_settings {
+    label: tr("Nodes");
+}
+
+/* To change node shapes */
+setting::node_shapes {
+  type: boolean;
+  label: tr("Node shapes");
+  default: true;
+  group: "node_settings";
+}
+
+/* To highlight unconnected nodes */
+setting::unconnected_nodes {
+  type: boolean;
+  label: tr("Unconnected Nodes");
+  default: true;
+  group: "node_settings";
+}
+
+/* To highlight floating nodes */
+setting::floating_nodes {
+  type: boolean;
+  label: tr("Floating Nodes");
+  default: true;
+  group: "node_settings";
+}
+
+/* To group way specific settings */
+settings::way_settings {
+    label: tr("Ways/Closed Ways");
+}
+
+/* Road classification setting */
+setting::road_classifications {
+  type: boolean;
+  label: tr("Road classifications");
+  default: true;
+  group: "way_settings";
+}
+
+/* Street name setting */
+setting::street_names {
+  type: boolean;
+  label: tr("Show street names");
+  default: true;
+  group: "way_settings";
+}
+
+/* Street name setting */
+setting::access_not_yes {
+  type: boolean;
+  label: tr("Highlight access not - yes");
+  default: true;
+  group: "way_settings";
+}
+
+/* Highlight highway=road setting */
+setting::highway_road {
+  type: boolean;
+  label: tr("Highlight highway=road ways");
+  default: true;
+  group: "way_settings";
+}
+
+/* Highlight unnamed ways setting */
+setting::unnamed_ways {
+  type: boolean;
+  label: tr("Highlight unnamed ways");
+  default: true;
+  group: "way_settings";
+}
+
+/* Untagged ways setting */
+setting::untagged_ways {
+  type: boolean;
+  label: tr("Untagged Ways");
+  default: true;
+  group: "way_settings";
+}
+
+/* Floating ways setting */
+setting::floating_ways {
+  type: boolean;
+  label: tr("Floating highways");
+  default: true;
+  group: "way_settings";
+}
+
+/* Highlight untagged ways  */
+way!:tagged[setting("untagged_ways")] {
+  width: 5;
+  text: tr("Untagged way");
+  font-size: 12;
+  text-color: red;
+  text-halo-color: white;
+  text-halo-radius: 3;
+}
+
+relation > way {
+  text: none;
+}
+
+/* For living_street */
+way|z0-[highway="living_street"][setting("road_classifications")] {
+  width: 5;
+}
+
+/* For track road */
+way|z0-[highway=track][setting("road_classifications")] {
+  width: 5;
+}
+
+/* For service road */
+way|z0-[highway=service][setting("road_classifications")] {
+  width: 5;
+}
+
+way|z0-[highway=service][service=driveway][setting("road_classifications")] {
+  width: 5;
+  dashes: 50;
+  dashes-background-color: black;
+}
+
+way|z0-[highway=service][service="drive-through"][setting("road_classifications")] {
+  width: 5;
+  dashes: 50;
+  dashes-background-color: lightgreen;
+}
+
+way|z0-[highway=service][service=alley][setting("road_classifications")] {
+  width: 5;
+  dashes: 50;
+  dashes-background-color: grey;
+}
+
+/* For residential road */
+way|z0-[highway=residential][setting("road_classifications")] {
+  width: 6;
+  color: white;
+}
+
+/* For unclassified road */
+way|z0-[highway=unclassified][setting("road_classifications")] {
+  width: 6;
+  color: pink;
+}
+
+/* For tertiary road */
+way|z0-[highway=tertiary][setting("road_classifications")] {
+  width: 7;
+  color: yellow;
+}
+
+/* For secondary road */
+way|z0-[highway=secondary][setting("road_classifications")] {
+  width: 7;
+  color: orange;
+}
+
+/* For primary road */
+way|z0-[highway=primary][setting("road_classifications")] {
+  width: 8;
+}
+
+/* For trunk road */
+way|z0-[highway=trunk][setting("road_classifications")] {
+  width: 8;
+}
+
+/* For motorway road */
+way|z0-[highway=motorway][setting("road_classifications")] {
+  width: 8;
+  color: orangered;
+}
+
+/* For tertiary link */
+way|z0-[highway=tertiary_link][setting("road_classifications")] {
+  width: 7;
+  color: yellow;
+  dashes: 10;
+  dashes-background-color: white;
+}
+
+/* For secondary link */
+way|z0-[highway=secondary_link][setting("road_classifications")] {
+  width: 7;
+  color: orange;
+  dashes: 10;
+  dashes-background-color: white;
+}
+
+/* For primary link */
+way|z0-[highway=primary_link][setting("road_classifications")] {
+  width: 8;
+  dashes: 10;
+  dashes-background-color: white;
+}
+
+/* For trunk link */
+way|z0-[highway=trunk_link][setting("road_classifications")] {
+  width: 8;
+  dashes: 10;
+  dashes-background-color: white;
+}
+
+/* For motorway link */
+way|z0-[highway=motorway_link][setting("road_classifications")] {
+  width: 8;
+  color: orangered;
+  dashes: 10;
+  dashes-background-color: white;
+}
+
+/* For roundabout */
+way|z0-[highway][junction="roundabout"][setting("road_classifications")] {
+  dashes: 25;
+  dashes-background-color: white;
+}
+
+/* Node shape for independent nodes */
+node[setting("node_shapes")] {
+  symbol-size: 4;
+  symbol-fill-color: white;
+  symbol-shape: square;
+  symbol-stroke-color: black;
+  symbol-stroke-width: 1;
+}
+
+
+/* Node shape for connection nodes */
+node:connection[setting("node_shapes")] {
+  symbol-size: 8;
+  symbol-shape: circle;
+  symbol-stroke-color: black;
+  symbol-stroke-width: 1;
+}
+
+/* Highlight unconnected nodes positioned in the last */
+way[highway]!:closed >[index=1] node!:connection!:tagged[setting("unconnected_nodes")],
+way[highway]!:closed >[index=-1] node!:connection!:tagged[setting("unconnected_nodes")] {
+  symbol-fill-color: red;
+  symbol-size: 10;
+  symbol-shape: circle;
+  symbol-stroke-color: salmon;
+  symbol-stroke-width: 1;
+}
+
+
+/* Enhance street name visibility */
+way[highway][name][setting("street_names")] {
+  text: tag("name");
+  font-size: 15;
+  font-weight: bold;
+  text-position: line;
+  text-color: black;
+  text-halo-color: white;
+  text-halo-radius: 3;
+}
+
+/* For node selection */
+node:selected {
+  symbol-fill-color: red;
+}
+
+/* For way selection */
+way:selected {
+  color: red;
+}
+
+/* Highlight unuploaded edits */
+node:modified[setting("unupload_modified")] {
+  symbol-shape: circle;
+  symbol-fill-color: transparent;
+  symbol-size: 10;
+  symbol-stroke-width: 3;
+  symbol-stroke-color: blue;
+}
+
+way:modified[setting("unupload_modified")] {
+  casing-color: red;
+  casing-width: 6;
+  casing-opacity: 0.75;
+  casing-dashes: 10;
+}
+
+/* Highlight unnamed ways */
+way[highway][!name][setting("unnamed_ways")] {
+  text: tr("Name?");
+  text-color: red;
+  text-halo-color: white;
+}
+
+/* Highlight floating nodes */
+node:unconnected!:tagged[setting("floating_nodes")] {
+  text: tr("Floating node");
+  text-color: red;
+  text-halo-color: white;
+  text-halo-radius: 3;
+  font-size: 12;
+  text-offset-x: 5;
+  symbol-size: 10;
+  symbol-fill-color: yellow;
+}
+
+/* Highlight floating highways */
+node:connection < way[highway] {
+  set .has_connection;
+}
+
+node!:in-downloaded-area <[index = 1] way[highway],
+node!:in-downloaded-area <[index = -1] way[highway] {
+  set .outside_area;
+}
+
+way[highway]!.has_connection!.outside_area[setting("floating_ways")] {
+  color: red;
+  text: tr("Floating highway");
+  dashes: none;
+  casing-dashes: none;
+  casing-color: red;
+
+  text-color: red;
+  text-halo-color: white;
+  text-halo-radius: 3;
+  font-size: 12;
+}
+
+/* Highlight ways with access otherthan yes */
+way[highway][access][access!="yes"][setting("access_not_yes")] {
+  dashes: 30;
+}
+
+/* Highlight highway=road ways*/
+way[highway="road"][setting("highway_road")] {
+  font-size: 12;
+  text: tr("highway = road ?");
+  text-color: red;
+  text-halo-color: white;
+  text-halo-radius: 3;
+}
+
+/* Highlight military and aerodrome polygons*/
+way[landuse=military], 
+way[landuse=aerodrome] {
+  width: 5;
+  dashes: 5;
+  text: tag(landuse);
+  text-position: center;
+  font-size: 15;
+  text-color: red;
+  text-halo-color: white;
+  text-halo-radius: 5;
+  color: yellow;
+  fill-color: red;
+  fill-extent: 100;
+}
+
+/* Track your self setting on nodes */
+node.msft_user[setting("track_your_self")] {
+  symbol-fill-color: blue;
+  symbol-size: 10;
+  symbol-fill-opacity: 1;
+}
+
+/* Track your self setting on ways */
+way.msft_user[setting("track_your_self")] {
+  casing-color: blue;
+  casing-width: 6;
+  casing-opacity: 0.75;
+  casing-dashes: 10;
+}
+
+
+
+/********************************
+ * Destination signs road labeling *
+ ********************************/
+relation[type=destination_sign][setting("destination_signs")] >[role="to"] way {  
+  width: 25;
+  color: blue;
+  opacity: 0.4;
+}
+
+relation[type=destination_sign][setting("destination_signs")] >[role="from"] way { 
+  width: 25;
+  color: red;
+  opacity: 0.4;
+}
+
+relation[type=destination_sign][setting("destination_signs")] > way|z17-::sign {
+  font-size: 12;
+  font-weight: bold;
+  text-color: eval(parent_tag("colour:text"));
+  text-halo-color: eval(parent_tag("colour:back"));
+  text-halo-radius: 15;
+  text-offset-y: 25;
+  text: concat(parent_tag("destination:ref"), parent_tag(ref), " ", parent_tag(destination));
+}
+
+relation[type=destination_sign][setting("destination_signs")] > way|z17-18::sign {
+  text-halo-radius: 2;
+}
+
+relation[type=destination_sign][setting("destination_signs")] > way|z19-::destination_street {
+  font-size: 10;
+  font-weight: bold;
+  text-color: black;
+  text-halo-color: white;
+  text-halo-radius: 2;
+  text-offset-y: 40;
+  text: parent_tag("destination:street");
+}
+
+/********************************
+ * Destination Sign labeling: AU *
+ ********************************/
+relation[type=destination_sign][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign] >[role="sign"] node {  
+  icon-image: https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Australian_Alphanumeric_State_Route.svg/25px-Australian_Alphanumeric_State_Route.svg.png;
+}
+
+relation[type=destination_sign][network=NH][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=NH] >[role="sign"] node {  
+  icon-image: https://wiki.openstreetmap.org/w/images/thumb/9/96/Australian_National_Highway.svg/25px-Australian_National_Highway.svg.png;
+}
+
+relation[type=destination_sign][network=NR][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=NR] >[role="sign"] node {  
+  icon-image: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Australian_Highway.svg/25px-Australian_Highway.svg.png;
+}
+
+relation[type=destination_sign][network=MR][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=MR] >[role="sign"] node {  
+  icon-image: https://wiki.openstreetmap.org/w/images/thumb/d/d3/Australian_metroad_template.svg/25px-Australian_metroad_template.svg.png;
+}
+
+relation[type=destination_sign][network=S][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=S] >[role="sign"] node {  
+  icon-image: https://wiki.openstreetmap.org/w/images/thumb/3/3f/Shield_australia_state_route_blank.svg/25px-Shield_australia_state_route_blank.svg.png;
+}
+
+relation[type=destination_sign][network=alt][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=alt] >[role="sign"] node {  
+  icon-image: https://wiki.openstreetmap.org/w/images/thumb/a/a1/Australian_Alphanumeric_State_Route_ALT.svg/25px-Australian_Alphanumeric_State_Route_ALT.svg.png;
+}
+
+relation[type=destination_sign][network=T][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=T] >[role="sign"] node {  
+  icon-image: https://wiki.openstreetmap.org/w/images/thumb/d/d1/Shield_australia_tourist_blank.svg/25px-Shield_australia_tourist_blank.svg.png;
+}
+
+/********************************
+ * Destination Sign labeling: US *
+ ********************************/
+relation[type=destination_sign][network=I][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=I] >[role="sign"] node {  
+  icon-image: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/I-00_template.svg/25px-I-00_template.svg.png;
+}
+
+relation[type=destination_sign][network=US][setting("destination_signs")] >[role="intersection"] node, relation[type=destination_sign][network=US] >[role="sign"] node {  
+  icon-image: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/US_blank.svg/25px-US_blank.svg.png;
+}
+
+/********************************
+ * Global Max Speeds *
+ ********************************/
+/* Setting for conditional maxspeed values */
+way["maxspeed:conditional"=~/^(none|[1-9][0-9]*) @ /][setting("max_speeds")]::maxspeedlayer {
+  maxsp_cond: get(split(" ", tag("maxspeed:conditional")), 0);
+  set cond_kmh;
+}
+
+way["maxspeed:forward:conditional"=~/^(none|[1-9][0-9]*) @ /][setting("max_speeds")]::maxspeedcasinglayer {
+  maxsp_forward_cond: get(split(" ", tag("maxspeed:forward:conditional")), 0);
+  set cond_forward_kmh;
+}
+
+way["maxspeed:backward:conditional"=~/^(none|[1-9][0-9]*) @ /][setting("max_speeds")]::maxspeedcasinglayer {
+  maxsp_backward_cond: get(split(" ", tag("maxspeed:backward:conditional")), 0);
+  set cond_backward_kmh;
+}
+
+way["maxspeed:conditional"=~/^[1-9][0-9]* mph @ /][setting("max_speeds")]::maxspeedlayer {
+  maxsp_cond: get(split(" ", tag("maxspeed:conditional")), 0);
+  set cond_mph;
+}
+
+way["maxspeed:forward:conditional"=~/^[1-9][0-9]* mph @ /][setting("max_speeds")]::maxspeedcasinglayer {
+  maxsp_forward_cond: get(split(" ", tag("maxspeed:forward:conditional")), 0);
+  set cond_forward_mph;
+}
+
+way["maxspeed:backward:conditional"=~/^[1-9][0-9]* mph @ /][setting("max_speeds")]::maxspeedcasinglayer {
+  maxsp_backward_cond: get(split(" ", tag("maxspeed:backward:conditional")), 0);
+  set cond_backward_mph;
+}
+
+/* Configuring for "km" format */
+way["maxspeed"="none"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_none#febede;
+}
+
+way["maxspeed"="5"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_5#ff5656;
+}
+
+way["maxspeed"="10"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_10#b80022;
+}
+
+way["maxspeed"="15"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_15#00da8b;
+}
+
+way["maxspeed"="20"][setting("max_speeds")]::maxspeedlayer,
+way["maxspeed"="RU:living_street"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_20#e3cc82;
+}
+
+way["maxspeed"="30"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_30#4d4dff;
+}
+
+way["maxspeed"="40"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_40#4d4d00;
+}
+
+way["maxspeed"="45"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_45#ff529a;
+}
+
+way["maxspeed"="50"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_50#07f807;
+}
+
+way["maxspeed"="60"][setting("max_speeds")]::maxspeedlayer,
+way["maxspeed"="RU:urban"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_60#9f9fff;
+}
+
+way["maxspeed"="70"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_70#ee8b00;
+}
+
+way["maxspeed"="80"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_80#f90808;
+}
+
+way["maxspeed"="90"][setting("max_speeds")]::maxspeedlayer,
+way["maxspeed"="RU:rural"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_90#07f8f8;
+}
+
+way["maxspeed"="100"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_100#f807f8;
+}
+
+way["maxspeed"="110"][setting("max_speeds")]::maxspeedlayer,
+way["maxspeed"="RU:motorway"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_110#7807f8;
+}
+
+way["maxspeed"="120"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_120#b69b20;
+}
+
+way["maxspeed"="130"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_130#c0f100;
+}
+
+way["maxspeed"="140"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_140#438100;
+}
+
+/* Configuring for "mph" format */
+way["maxspeed"="5 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_5_mph#b80022;
+} 
+
+way["maxspeed"="10 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_10_mph#00da8b;
+}
+
+way["maxspeed"="15 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_15_mph#e3cc82;
+}
+
+way["maxspeed"="20 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_20_mph#4d4dff;
+}
+
+way["maxspeed"="25 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_25_mph#4d4d00;
+}
+
+way["maxspeed"="30 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_30_mph#ff529a;
+}
+
+way["maxspeed"="35 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_35_mph#07f807;
+}
+
+way["maxspeed"="40 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_40_mph#9f9fff;
+}
+
+way["maxspeed"="45 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_45_mph#ee8b00;
+}
+
+way["maxspeed"="50 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_50_mph#f90808;
+}
+
+way["maxspeed"="55 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_55_mph#07f8f8;
+}
+
+way["maxspeed"="60 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_60_mph#f807f8;
+}
+
+way["maxspeed"="65 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_65_mph#7807f8;
+}
+
+way["maxspeed"="70 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_70_mph#b69b20;
+}
+
+way["maxspeed"="75 mph"][setting("max_speeds")]::maxspeedlayer {
+  set maxspeed;
+  color: speed_75_mph#c0f100;
+}
+
+/* Conditional maxspeeds */
+way.cond_kmh[setting("max_speeds")]::maxspeedlayer,
+way.cond_mph[setting("max_speeds")]::maxspeedlayer {
+  dashes: 55,25;
+}
+
+/* Max speeds in km format */
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="none"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_none#febede;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="5"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_5#ff5656;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="10"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_10#b80022;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="15"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_15#00da8b;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="20"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_20#e3cc82;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="30"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_30#4d4dff;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="40"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_40#4d4d00;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="45"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_45#ff529a;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="50"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_50#07f807;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="60"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_60#9f9fff;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="70"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_70#ee8b00;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="80"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_80#f90808;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="90"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_90#07f8f8;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="100"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_100#f807f8;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="110"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_110#7807f8;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="120"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_120#b69b20;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="130"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_130#c0f100;
+}
+
+way.cond_kmh[prop(maxsp_cond, maxspeedlayer)="140"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_140#438100;
+}
+
+/* Max speeds mph format*/
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="5"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_5_mph#b80022;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="10"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_10_mph#00da8b;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="15"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_15_mph#e3cc82;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="20"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_20_mph#4d4dff;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="25"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_25_mph#4d4d00;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="30"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_30_mph#ff529a;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="35"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_35_mph#07f807;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="40"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_40_mph#9f9fff;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="45"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_45_mph#ee8b00;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="50"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_50_mph#f90808;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="55"][setting("max_speeds")]::maxspeedlayer{
+  dashes-background-color:  speed_55_mph#07f8f8;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="60"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_60_mph#f807f8;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="65"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_65_mph#7807f8;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="70"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_70_mph#b69b20;
+}
+
+way.cond_mph[prop(maxsp_cond, maxspeedlayer)="75"][setting("max_speeds")]::maxspeedlayer {
+  dashes-background-color:  speed_75_mph#c0f100;
+}
+
+/* Max speeds general rules */
+way.maxspeed[setting("max_speeds")]::maxspeedlayer {
+  width: 14;
+  z-index: -1;
+}
+
+way|z16.maxspeed[setting("max_speeds")]::maxspeedlayer {
+  width: 12;
+}
+
+way|z-15.maxspeed[setting("max_speeds")]::maxspeedlayer {
+  width:10;
+}
+
+way.maxspeed[maxspeed:variable][setting("max_speeds")]::maxspeedlayer {
+  dashes: 34,6;
+}
+
+/* Conditional righthand-forward and lefthand-backward maxspeed */
+way.cond_forward_kmh:righthandtraffic[setting("max_speeds")]::maxspeedcasinglayer,
+way.cond_backward_kmh!:righthandtraffic[setting("max_speeds")]::maxspeedcasinglayer,
+way.cond_forward_mph:righthandtraffic[setting("max_speeds")]::maxspeedcasinglayer,
+way.cond_backward_mph!:righthandtraffic[setting("max_speeds")]::maxspeedcasinglayer {
+  set maxspeed_right_cond;
+  right-casing-dashes: 55,25;
+}
+
+/* For kmh format */
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="none"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="none"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_none#febede;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_5#ff5656;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_10#b80022;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_15#00da8b;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_20#e3cc82;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_30#4d4dff;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_40#4d4d00;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_45#ff529a;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_50#07f807;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_60#9f9fff;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_70#ee8b00;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="80"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="80"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_80#f90808;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="90"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="90"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_90#07f8f8;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="100"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="100"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_100#f807f8;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="110"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="110"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_110#7807f8;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="120"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="120"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_120#b69b20;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="130"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="130"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_130#c0f100;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="140"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="140"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_140#438100;
+}
+
+
+/* For mph format */
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_5_mph#b80022;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_10_mph#00da8b;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_15_mph#e3cc82;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_20_mph#4d4dff;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="25"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="25"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_25_mph#4d4d00;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_30_mph#ff529a;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="35"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="35"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_35_mph#07f807;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_40_mph#9f9fff;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_45_mph#ee8b00;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_50_mph#f90808;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="55"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="55"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_55_mph#07f8f8;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_60_mph#f807f8;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="65"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="65"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_65_mph#7807f8;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_70_mph#b69b20;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="75"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="75"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes-background-color: speed_75_mph#c0f100;
+}
+
+
+/* General rules */
+way.maxspeed_right[setting("max_speeds")]::maxspeedcasinglayer,
+way.maxspeed_right_cond[setting("max_speeds")]::maxspeedcasinglayer {
+  right-casing-width: 6;
+  right-casing-offset: 0;
+  major-z-index: 3;
+  z-index: -1;
+}
+
+way|z16.maxspeed_right[setting("max_speeds")]::maxspeedcasinglayer,
+way|z16.maxspeed_right_cond[setting("max_speeds")]::maxspeedcasinglayer {
+  right-casing-width: 5;
+}
+
+way|z-15.maxspeed_right[setting("max_speeds")]::maxspeedcasinglayer,
+way|z-15.maxspeed_right_cond[setting("max_speeds")]::maxspeedcasinglayer {
+  right-casing-width: 4;
+}
+
+way.maxspeed_right_cond!.maxspeed_right[setting("max_speeds")]::maxspeedcasinglayer {
+  right-casing-opacity: 0;
+  right-casing-dashes-background-opacity: 1;
+}
+
+way.maxspeed_right[maxspeed:variable:forward][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.maxspeed_right[maxspeed:variable:backward][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.maxspeed_right_cond[maxspeed:variable:forward][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.maxspeed_right_cond[maxspeed:variable:backward][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer {
+  right-casing-dashes: 34,6;
+}
+
+/* Display maxspeed:forward=* for lefthand traffic and maxspeed:backward=* for righthand traffic */
+/* For km format */
+way["maxspeed:forward"="none"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="none"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_none#febede;
+}
+
+way["maxspeed:forward"="5"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="5"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_5#ff5656;
+}
+
+way["maxspeed:forward"="10"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="10"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_10#b80022;
+}
+
+way["maxspeed:forward"="15"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="15"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_15#00da8b;
+}
+
+way["maxspeed:forward"="20"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="20"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="RU:living_street"][setting("max_speeds")][setting("max_speeds_RU")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_20#e3cc82;
+}
+
+way["maxspeed:forward"="30"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="30"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_30#4d4dff;
+}
+
+way["maxspeed:forward"="40"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="40"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_40#4d4d00;
+}
+
+way["maxspeed:forward"="45"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="45"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_45#ff529a;
+}
+
+way["maxspeed:forward"="50"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="50"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_50#07f807;
+}
+
+way["maxspeed:forward"="60"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="60"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="RU:urban"][setting("max_speeds")][setting("max_speeds_RU")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_60#9f9fff;
+}
+
+way["maxspeed:forward"="70"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="70"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_70#ee8b00;
+}
+
+way["maxspeed:forward"="80"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="80"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_80#f90808;
+}
+
+way["maxspeed:forward"="90"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="90"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="RU:rural"][setting("max_speeds")][setting("max_speeds_RU")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_90#07f8f8;
+}
+
+way["maxspeed:forward"="100"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="100"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_100#f807f8;
+}
+
+way["maxspeed:forward"="110"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="110"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="RU:motorway"][setting("max_speeds")][setting("max_speeds_RU")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_110#7807f8;
+}
+
+way["maxspeed:forward"="120"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="120"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_120#b69b20;
+}
+
+way["maxspeed:forward"="130"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="130"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_130#c0f100;
+}
+
+way["maxspeed:forward"="140"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="140"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_140#438100;
+}
+
+/* Display maxspeed:forward=* for lefthand traffic and maxspeed:backward=* for righthand traffic */
+/* For mph format */
+way["maxspeed:forward"="5 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="5 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_5_mph#b80022;
+}
+
+way["maxspeed:forward"="10 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="10 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_10_mph#00da8b;
+}
+
+way["maxspeed:forward"="15 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="15 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_15_mph#e3cc82;
+}
+
+way["maxspeed:forward"="20 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="20 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_20_mph#4d4dff;
+}
+
+way["maxspeed:forward"="25 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="25 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_25_mph#4d4d00;
+}
+
+way["maxspeed:forward"="30 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="30 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_30_mph#ff529a;
+}
+
+way["maxspeed:forward"="35 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="35 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_35_mph#07f807;
+}
+
+way["maxspeed:forward"="40 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="40 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_40_mph#9f9fff;
+}
+
+way["maxspeed:forward"="45 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="45 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_45_mph#ee8b00;
+}
+
+way["maxspeed:forward"="50 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="50 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_50_mph#f90808;
+}
+
+way["maxspeed:forward"="55 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="55 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_55_mph#07f8f8;
+}
+
+way["maxspeed:forward"="60 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="60 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_60_mph#f807f8;
+}
+
+way["maxspeed:forward"="65 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="65 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_65_mph#7807f8;
+}
+
+way["maxspeed:forward"="70 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="70 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_70_mph#b69b20;
+}
+
+way["maxspeed:forward"="75 mph"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way["maxspeed:backward"="75 mph"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left;
+  left-casing-color: speed_75_mph#c0f100;
+}
+
+/* Conditional lefthand-forward and righthand-backward maxspeed */
+way.cond_forward_kmh[setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.cond_forward_mph[setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  set maxspeed_left_cond;
+  left-casing-dashes: 55,25;
+}
+
+/* Conditional lefthand-forward and righthand-backward maxspeed */
+/* For km format */
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="none"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="none"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_none#febede;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_5#ff5656;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_10#b80022;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_15#00da8b;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_20#e3cc82;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_30#4d4dff;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_40#4d4d00;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_45#ff529a;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_50#07f807;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_60#9f9fff;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_70#ee8b00;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="80"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="80"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_80#f90808;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="90"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="90"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_90#07f8f8;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="100"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="100"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_100#f807f8;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="110"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="110"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_110#7807f8;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="120"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="120"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_120#b69b20;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="130"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="130"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_130#c0f100;
+}
+
+way.cond_forward_kmh[prop(maxsp_forward_cond, maxspeedcasinglayer)="140"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_kmh[prop(maxsp_backward_cond, maxspeedcasinglayer)="140"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_140#438100;
+}
+
+/* Conditional lefthand-forward and righthand-backward maxspeed */
+/* For mph format*/
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="5"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_5_mph#b80022;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="10"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_10_mph#00da8b;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="15"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_15_mph#e3cc82;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="20"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_20_mph#4d4dff;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="25"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="25"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_25_mph#4d4d00;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="30"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_30_mph#ff529a;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="35"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="35"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_35_mph#07f807;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="40"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_40_mph#9f9fff;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="45"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_45_mph#ee8b00;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="50"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_50_mph#f90808;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="55"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="55"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_55_mph#07f8f8;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="60"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_60_mph#f807f8;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="65"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="65"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_65_mph#7807f8;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="70"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_70_mph#b69b20;
+}
+
+way.cond_forward_mph[prop(maxsp_forward_cond, maxspeedcasinglayer)="75"][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.cond_backward_mph[prop(maxsp_backward_cond, maxspeedcasinglayer)="75"][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes-background-color: speed_75_mph#c0f100;
+}
+
+/* Conditional lefthand-forward and righthand-backward maxspeed */
+/* General rules */
+way.maxspeed_left[setting("max_speeds")]::maxspeedcasinglayer,
+way.maxspeed_left_cond[setting("max_speeds")]::maxspeedcasinglayer {
+  left-casing-width: 6;
+  left-casing-offset: 0;
+  major-z-index: 3;
+  z-index: -1;
+}
+
+way|z16.maxspeed_left[setting("max_speeds")]::maxspeedcasinglayer,
+way|z16.maxspeed_left_cond[setting("max_speeds")]::maxspeedcasinglayer {
+  left-casing-width: 5;
+}
+
+way|z-15.maxspeed_left[setting("max_speeds")]::maxspeedcasinglayer,
+way|z-15.maxspeed_left_cond[setting("max_speeds")]::maxspeedcasinglayer {
+  left-casing-width: 4;
+}
+
+way.maxspeed_left_cond!.maxspeed_left[setting("max_speeds")]::maxspeedcasinglayer {
+  left-casing-opacity: 0;
+  left-casing-dashes-background-opacity: 1;
+}
+
+way.maxspeed_left[maxspeed:variable:forward][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.maxspeed_left[maxspeed:variable:backward][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer,
+way.maxspeed_left_cond[maxspeed:variable:forward][setting("max_speeds")]!:righthandtraffic::maxspeedcasinglayer,
+way.maxspeed_left_cond[maxspeed:variable:backward][setting("max_speeds")]:righthandtraffic::maxspeedcasinglayer {
+  left-casing-dashes: 34,6;
+}
+
+/* Error reporting */
+/* Report wrong value of maxspeed */
+way[maxspeed=~/^[0-9]+$/][setting("max_speeds")]::maxspeedlayer,
+way[maxspeed=signals][setting("max_speeds")]::maxspeedlayer,
+way[maxspeed=none][setting("max_speeds")]::maxspeedlayer,
+way[maxspeed=~/^[0-9]+ mph/][setting("max_speeds")]::maxspeedlayer,
+way[maxspeed=~/[0-9]+ km\/h/][setting("max_speeds")]::maxspeedlayer,
+way[maxspeed=~/[0-9]+ knots/][setting("max_speeds")]::maxspeedlayer,
+way[maxspeed="RU:living_street"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer,
+way[maxspeed="RU:urban"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer,
+way[maxspeed="RU:rural"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer,
+way[maxspeed="RU:motorway"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedlayer {
+  set correct_value;
+}
+
+way[maxspeed:forward=~/^[0-9]+$/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:forward=signals][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:forward=none][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:forward=~/^[0-9]+ mph/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:forward=~/[0-9]+ km\/h/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:forward=~/[0-9]+ knots/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:forward="RU:living_street"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer,
+way[maxspeed:forward="RU:urban"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer,
+way[maxspeed:forward="RU:rural"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer,
+way[maxspeed:forward="RU:motorway"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer {
+  set correct_value_forward;
+}
+
+way[maxspeed:backward=~/^[0-9]+$/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:backward=signals][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:backward=none][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:backward=~/^[0-9]+ mph/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:backward=~/[0-9]+ km\/h/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:backward=~/[0-9]+ knots/][setting("max_speeds")]::maxspeedcasinglayer,
+way[maxspeed:backward="RU:living_street"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer,
+way[maxspeed:backward="RU:urban"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer,
+way[maxspeed:backward="RU:rural"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer,
+way[maxspeed:backward="RU:motorway"][setting("max_speeds")][setting("max_speeds_RU")]::maxspeedcasinglayer {
+  set correct_value_backward;
+}
+
+way["maxspeed"]!.correct_value[setting("max_speeds")]::maxspeedlayer,
+way["maxspeed:forward"]!.correct_value_forward[setting("max_speeds")]::maxspeedcasinglayer,
+way["maxspeed:backward"]!.correct_value_backward[setting("max_speeds")]::maxspeedcasinglayer {
+  color: yellow;
+  dashes-background-color: red;
+  dashes: 4,24;
+  opacity: 1;
+  width: 5;
+  text: tr("no correct value for maxspeed!");
+  text-color: black;
+  font-size: 11;
+  text-halo-color: red;
+  text-halo-radius: 2;
+  casing-width: 1;
+  casing-color: yellow;
+}
+
+/* Report wrong value of maxspeed:conditional */
+way["maxspeed:conditional"=~/^[1-9][0-9]* knots @ /][setting("max_speeds")]::maxspeedlayer,
+way["maxspeed:forward:conditional"=~/^[1-9][0-9]* knots @ /][setting("max_speeds")]::maxspeedcasinglayer,
+way["maxspeed:backward:conditional"=~/^[1-9][0-9]* knots @ /][setting("max_speeds")]::maxspeedcasinglayer {
+  set cond_knots;
+}
+
+way["maxspeed:conditional"]!.cond_kmh!.cond_mph!.cond_knots[setting("max_speeds")]::maxspeedlayer,
+way["maxspeed:forward:conditional"]!.cond_forward_kmh!.cond_forward_mph!.cond_knots[setting("max_speeds")]::maxspeedcasinglayer,
+way["maxspeed:backward:conditional"]!.cond_backward_kmh!.cond_backward_mph!.cond_knots[setting("max_speeds")]::maxspeedcasinglayer {
+  color: yellow;
+  dashes-background-color: red;
+  dashes: 4,24;
+  opacity: 1;
+  width: 5;
+  text: tr("wrong conditional maxspeed value!");
+  text-color: black;
+  font-size: 11;
+  text-halo-color: red;
+  text-halo-radius: 2;
+  left-casing-width: 1;
+  left-casing-color: yellow;
+  right-casing-width: 1;
+  right-casing-color: yellow;
+  z-index: 1;
+}
+
+/* Report conditional maxspeed without default maxspeed */
+way["maxspeed:conditional"][!"maxspeed"][setting("max_speeds")]::maxspeedlayer,
+way["maxspeed:forward:conditional"][!"maxspeed:forward"][!"maxspeed"][setting("max_speeds")]::maxspeedcasinglayer,
+way["maxspeed:backward:conditional"][!"maxspeed:backward"][!"maxspeed"][setting("max_speeds")]::maxspeedcasinglayer {
+  color: yellow;
+  dashes-background-color: red;
+  dashes: 4,24;
+  opacity: 1;
+  width: 5;
+  text: tr("conditional maxspeed without default maxspeed!");
+  text-color: black;
+  font-size: 11;
+  text-halo-color: red;
+  text-halo-radius: 2;
+  left-casing-width: 1;
+  left-casing-color: yellow;
+  right-casing-width: 1;
+  right-casing-color: yellow;
+  left-casing-opacity: 1;
+  right-casing-opacity: 1;
+  z-index: 1;
+}
+
+/* Report if maxspeed direction is opposed to oneway direction */
+way["maxspeed:backward"][oneway?][setting("max_speeds")],
+way["maxspeed:forward"][oneway=-1][setting("max_speeds")] {
+  color: yellow;
+  dashes-background-color: red;
+  dashes: 4,24;
+  opacity: 1;
+  width: 5;
+  text: tr("maxspeed opposed to oneway direction!");
+  text-color: black;
+  font-size: 11;
+  text-halo-color: red;
+  text-halo-radius: 2;
+  casing-width: 1;
+  casing-color: yellow;
+}
