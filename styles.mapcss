@@ -278,7 +278,7 @@ way|z0-[highway][junction="roundabout"][setting("road_classifications")] {
 }
 
 /* Node shape for independent nodes */
-node[setting("node_shapes")] {
+node|z18-[setting("node_shapes")] {
   symbol-size: 4;
   symbol-fill-color: white;
   symbol-shape: square;
@@ -286,9 +286,8 @@ node[setting("node_shapes")] {
   symbol-stroke-width: 1;
 }
 
-
 /* Node shape for connection nodes */
-node:connection[setting("node_shapes")] {
+node|z18-:connection[setting("node_shapes")] {
   symbol-size: 8;
   symbol-shape: circle;
   symbol-stroke-color: black;
@@ -307,7 +306,7 @@ way[highway]!:closed >[index=-1] node!:connection!:tagged[setting("unconnected_n
 
 
 /* Enhance street name visibility */
-way[highway][name][setting("street_names")] {
+way|z17-[highway][name][setting("street_names")] {
   text: tag("name");
   font-size: 15;
   font-weight: bold;
@@ -344,7 +343,7 @@ way:modified[setting("unupload_modified")] {
 }
 
 /* Highlight unnamed ways */
-way[highway][!name][setting("unnamed_ways")] {
+way|z17-[highway][!name][setting("unnamed_ways")] {
   text: tr("Name?");
   text-color: red;
   text-halo-color: white;
