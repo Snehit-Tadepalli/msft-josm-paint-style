@@ -1,10 +1,10 @@
 meta {
-    title: "Microsoft Map Paint Style";
+    title: "Microsoft Editors Paint Style";
     author: "Snehit Tadepalli";
-    version: "0.0.1";
+    version: "1.0.1";
     watch-modified: true;
     description: "A map paint style for JOSM editor developed by Microsoft team.";
-    link: "https://github.com/Snehit_Tadepalli/microsoft-osm-paint-styles";
+    link: "https://github.com/Snehit-Tadepalli/msft-josm-paint-style/archive/refs/heads/main.zip";
 }
 
 /* Track your self setting */
@@ -156,124 +156,149 @@ way!:tagged[setting("untagged_ways")] {
   text-halo-radius: 3;
 }
 
-relation > way {
+/* For all the ways that are included in a relation */
+relation > way[!highway] {
   text: none;
+  width: 2;
+  casing-color: #03fff7;
+  casing-width: 4;
+}
+
+/* For paths */
+way|z0-[highway="path"][setting("road_classifications")] {
+  width: 2;
+  color: #9c42f5;
+  dashes: 0;
+}
+
+/* For pedestrians */
+way|z0-[highway="pedestrian"][setting("road_classifications")] {
+  width: 2;
+  color: #42e9f5;
+  dashes: 0;
+}
+
+/* For footways */
+way|z0-[highway="footway"][setting("road_classifications")] {
+  width: 2;
+  color: #42f54e;
+  dashes: 0;
 }
 
 /* For living_street */
 way|z0-[highway="living_street"][setting("road_classifications")] {
-  width: 5;
+  width: 4;
 }
 
 /* For track road */
 way|z0-[highway=track][setting("road_classifications")] {
-  width: 5;
+  width: 4;
 }
 
 /* For service road */
 way|z0-[highway=service][setting("road_classifications")] {
-  width: 5;
+  width: 4;
 }
 
 way|z0-[highway=service][service=driveway][setting("road_classifications")] {
-  width: 5;
+  width: 4;
   dashes: 50;
   dashes-background-color: black;
 }
 
 way|z0-[highway=service][service="drive-through"][setting("road_classifications")] {
-  width: 5;
+  width: 4;
   dashes: 50;
   dashes-background-color: lightgreen;
 }
 
 way|z0-[highway=service][service=alley][setting("road_classifications")] {
-  width: 5;
+  width: 4;
   dashes: 50;
   dashes-background-color: grey;
 }
 
 /* For residential road */
 way|z0-[highway=residential][setting("road_classifications")] {
-  width: 6;
+  width: 4;
   color: white;
 }
 
 /* For unclassified road */
 way|z0-[highway=unclassified][setting("road_classifications")] {
-  width: 6;
+  width: 4;
   color: pink;
 }
 
 /* For tertiary road */
 way|z0-[highway=tertiary][setting("road_classifications")] {
-  width: 7;
+  width: 5;
   color: yellow;
 }
 
 /* For secondary road */
 way|z0-[highway=secondary][setting("road_classifications")] {
-  width: 7;
+  width: 5;
   color: orange;
 }
 
 /* For primary road */
 way|z0-[highway=primary][setting("road_classifications")] {
-  width: 8;
+  width: 5;
 }
 
 /* For trunk road */
 way|z0-[highway=trunk][setting("road_classifications")] {
-  width: 8;
+  width: 6;
 }
 
 /* For motorway road */
 way|z0-[highway=motorway][setting("road_classifications")] {
-  width: 8;
+  width: 6;
   color: orangered;
 }
 
 /* For tertiary link */
 way|z0-[highway=tertiary_link][setting("road_classifications")] {
-  width: 7;
+  width: 5;
   color: yellow;
-  dashes: 10;
+  dashes: 5;
   dashes-background-color: white;
 }
 
 /* For secondary link */
 way|z0-[highway=secondary_link][setting("road_classifications")] {
-  width: 7;
+  width: 5;
   color: orange;
-  dashes: 10;
+  dashes: 5;
   dashes-background-color: white;
 }
 
 /* For primary link */
 way|z0-[highway=primary_link][setting("road_classifications")] {
-  width: 8;
-  dashes: 10;
+  width: 5;
+  dashes: 5;
   dashes-background-color: white;
 }
 
 /* For trunk link */
 way|z0-[highway=trunk_link][setting("road_classifications")] {
-  width: 8;
-  dashes: 10;
+  width: 6;
+  dashes: 5;
   dashes-background-color: white;
 }
 
 /* For motorway link */
 way|z0-[highway=motorway_link][setting("road_classifications")] {
-  width: 8;
+  width: 6;
   color: orangered;
-  dashes: 10;
+  dashes: 5;
   dashes-background-color: white;
 }
 
 /* For roundabout */
 way|z0-[highway][junction="roundabout"][setting("road_classifications")] {
-  dashes: 25;
+  dashes: 10;
   dashes-background-color: white;
 }
 
@@ -295,8 +320,8 @@ node|z18-:connection[setting("node_shapes")] {
 }
 
 /* Highlight unconnected nodes positioned in the last */
-way[highway]!:closed >[index=1] node!:connection!:tagged[setting("unconnected_nodes")],
-way[highway]!:closed >[index=-1] node!:connection!:tagged[setting("unconnected_nodes")] {
+way[highway]!:closed >[index=1] node|z17-!:connection!:tagged[setting("unconnected_nodes")],
+way[highway]!:closed >[index=-1] node|z17-!:connection!:tagged[setting("unconnected_nodes")] {
   symbol-fill-color: red;
   symbol-size: 10;
   symbol-shape: circle;
@@ -308,7 +333,7 @@ way[highway]!:closed >[index=-1] node!:connection!:tagged[setting("unconnected_n
 /* Enhance street name visibility */
 way|z17-[highway][name][setting("street_names")] {
   text: tag("name");
-  font-size: 15;
+  font-size: 12;
   font-weight: bold;
   text-position: line;
   text-color: black;
@@ -327,19 +352,18 @@ way:selected {
 }
 
 /* Highlight unuploaded edits */
-node:modified[setting("unupload_modified")] {
+node|z17-:modified[setting("unupload_modified")] {
   symbol-shape: circle;
-  symbol-fill-color: transparent;
+  symbol-fill-color: white;
   symbol-size: 10;
-  symbol-stroke-width: 3;
-  symbol-stroke-color: blue;
+  symbol-stroke-width: 2;
+  symbol-stroke-color: red;
 }
 
-way:modified[setting("unupload_modified")] {
+way|z17-:modified[setting("unupload_modified")] {
   casing-color: red;
-  casing-width: 6;
-  casing-opacity: 0.75;
-  casing-dashes: 10;
+  casing-width: 8;
+  casing-opacity: 0.5;
 }
 
 /* Highlight unnamed ways */
@@ -377,7 +401,6 @@ way[highway]!.has_connection!.outside_area[setting("floating_ways")] {
   dashes: none;
   casing-dashes: none;
   casing-color: red;
-
   text-color: red;
   text-halo-color: white;
   text-halo-radius: 3;
@@ -396,6 +419,7 @@ way[highway="road"][setting("highway_road")] {
   text-color: red;
   text-halo-color: white;
   text-halo-radius: 3;
+  width: 5;
 }
 
 /* Highlight military and aerodrome polygons*/
@@ -415,21 +439,41 @@ way[landuse=aerodrome] {
 }
 
 /* Track your self setting on nodes */
-node.msft_user[setting("track_your_self")] {
+node|z17-.msft_user[setting("track_your_self")] {
   symbol-fill-color: blue;
-  symbol-size: 10;
-  symbol-fill-opacity: 1;
+  symbol-size: 8;
+  symbol-fill-opacity: 0.75;
+  symbol-shape: circle;
 }
 
 /* Track your self setting on ways */
-way.msft_user[setting("track_your_self")] {
+way|z17-.msft_user[setting("track_your_self")] {
   casing-color: blue;
-  casing-width: 6;
-  casing-opacity: 0.75;
-  casing-dashes: 10;
+  casing-width: 8;
+  casing-opacity: 0.5;
 }
 
+/* Specially highlight the selected nodes when track your self is ON */
+node|z17-:selected[setting("node_shapes")] {
+  symbol-shape: square;
+  symbol-stroke-color: black;
+  symbol-size: 6;
+  symbol-fill-color: red;
+}
 
+/* To highlight bridges */
+way|z17-[highway][bridge] {
+  casing-color: yellow;
+  casing-width: 10;
+  casing-opacity: 1;
+}
+
+/* To highlight tunnels */
+way|z17-[highway][tunnel] {
+  casing-color: purple;
+  casing-width: 10;
+  casing-opacity: 1;
+}
 
 /********************************
  * Destination signs road labeling *
