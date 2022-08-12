@@ -1,0 +1,106 @@
+meta {
+    	title: "Microsoft QC Paint Style";
+	author: "Snehit Tadepalli";
+    	version: "1.0.0";
+    	watch-modified: true;
+    	description: "A map paint style for JOSM editor developed by Microsoft team which helps to highlight the edits of our editors.";
+}
+
+*[osm_user_name() == "BrackoNe"], 
+*[osm_user_name() == "DareDJ"],
+*[osm_user_name() == "aleksaJov"],
+*[osm_user_name() == "magrej"],
+*[osm_user_name() == "miroslavuzice87"],
+*[osm_user_name() == "TaraV"],
+*[osm_user_name() == "LakatosVL"],
+*[osm_user_name() == "Misa_zumba"],
+*[osm_user_name() == "Aleksandar Matejevic"],
+*[osm_user_name() == "AndjelaS"],
+*[osm_user_name() == "PulisakZ"],
+*[osm_user_name() == "MajaMaravic"],
+*[osm_user_name() == "Aleksandar1994"],
+*[osm_user_name() == "borovac"],
+*[osm_user_name() == "Herriotto"],
+*[osm_user_name() == "KanaLee"],
+*[osm_user_name() == "kfremd"],
+*[osm_user_name() == "cforin"],
+*[osm_user_name() == "Land-o Calrissian"],
+*[osm_user_name() == "PhillipCarew"],
+*[osm_user_name() == "KevinWalshe"],
+*[osm_user_name() == "mcnabbian"],
+*[osm_user_name() == "Swapnav"],
+*[osm_user_name() == "kwametedros"],
+*[osm_user_name() == "rprescott"],
+*[osm_user_name() == "AndreThib"],
+*[osm_user_name() == "lucsalmons"],
+*[osm_user_name() == "Jaecord"],
+*[osm_user_name() == "rocky2109"],
+*[osm_user_name() == "Dacc1"],
+*[osm_user_name() == "mmekala"],
+*[osm_user_name() == "Priti25"],
+*[osm_user_name() == "PKapoor"],
+*[osm_user_name() == "udaykota"],
+*[osm_user_name() == "manoj@123"],
+*[osm_user_name() == "Snalla"],
+*[osm_user_name() == "Pavani09"],
+*[osm_user_name() == "sansmapper"],
+*[osm_user_name() == "rajkumar ch"],
+*[osm_user_name() == "Priya1904"],
+*[osm_user_name() == "Sree1922"],
+*[osm_user_name() == "Sriosm"],
+*[osm_user_name() == "Raj Chittakoru"],
+*[osm_user_name() == "Timusumisu"],
+*[osm_user_name() == "GovindHH"],
+*[osm_user_name() == "spanda"],
+*[osm_user_name() == "Heidi_B"],
+*[osm_user_name() == "Pamposh123"],
+*[osm_user_name() == "Lake Skywalker"],
+*[osm_user_name() == "Snehit_Tadepalli"],
+*[osm_user_name() == "jula_2106"],
+*[osm_user_name() == "Prasad jane"],
+*[osm_user_name() == "kkrish11"],
+*[osm_user_name() == "manyam1011"] {
+  	set .msft_user;
+}
+
+node|z18-.msft_user {
+   	symbol-shape: triangle;
+   	symbol-size: 15;
+	symbol-fill-color: yellow;
+}
+
+node|z18-:selected.msft_user {
+	text-color: black;
+  	text-halo-color: white;
+  	text-halo-radius: 5;
+  	font-size: 15;
+	font-weight: bold;
+  	text-offset-x: 5;
+  	symbol-fill-color: red;
+	text: tr(concat("User: ", eval(osm_user_name())));
+}
+
+way|z18-.msft_user {
+    	casing-color: yellow;
+	casing-opacity: 0.75;
+    	casing-width: 10;
+    	casing-dashes: 0;
+}
+
+way|z18-:selected.msft_user {
+	font-weight: bold;
+	font-size: 15;
+	text-color: black;
+	text-halo-color: white;
+	text-halo-radius: 5;
+    	text: tr(concat("User: ", eval(osm_user_name())));
+}
+
+way|z18-:closed:selected.msft_user {
+	font-weight: bold;
+	font-size: 15;
+	text-color: black;
+	text-halo-color: white;
+	text-halo-radius: 5;
+    	text: tr(concat("User: ", eval(osm_user_name())));
+}
