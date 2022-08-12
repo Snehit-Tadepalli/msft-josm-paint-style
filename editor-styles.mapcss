@@ -2,7 +2,7 @@ meta {
     title: "Microsoft Editors Paint Style";
     author: "Snehit Tadepalli";
     version: "1.0.1";
-    watch-modified: false;
+    watch-modified: true;
     description: "A map paint style for JOSM editor developed by Microsoft team.";
     link: "https://github.com/Snehit-Tadepalli/msft-josm-paint-style/archive/refs/heads/main.zip";
 }
@@ -464,14 +464,14 @@ node|z17-:selected[setting("node_shapes")] {
 /* To highlight bridges */
 way|z17-[highway][bridge] {
   casing-color: #03fcf4;
-  casing-width: 8;
+  casing-width: 10;
   casing-opacity: 1;
 }
 
 /* To highlight tunnels */
 way|z17-[highway][tunnel] {
   casing-color: purple;
-  casing-width: 8;
+  casing-width: 10;
   casing-opacity: 1;
 }
 
