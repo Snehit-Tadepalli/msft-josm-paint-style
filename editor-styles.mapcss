@@ -1,7 +1,7 @@
 meta {
     title: "Microsoft Editors Paint Style";
     author: "Snehit Tadepalli";
-    version: "1.0.0";
+    version: "1.0.1";
     watch-modified: true;
     description: "A map paint style for JOSM editor developed by Microsoft team.";
     link: "https://github.com/Snehit-Tadepalli/msft-josm-paint-style/archive/refs/heads/main.zip";
