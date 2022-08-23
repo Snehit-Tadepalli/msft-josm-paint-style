@@ -409,7 +409,9 @@ way[highway]!.has_connection!.outside_area[setting("floating_ways")] {
 
 /* Highlight ways with access otherthan yes */
 way[highway][access][access!="yes"][setting("access_not_yes")] {
-  dashes: 30;
+  dashes: list(25, 1, 1, 1, 1, 1, 1);
+  dashes-background-opacity: 0.5;
+  dashes-background-color: #FF6347;
 }
 
 /* Highlight highway=road ways*/
