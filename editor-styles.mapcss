@@ -462,14 +462,14 @@ node|z17-:selected[setting("node_shapes")] {
 }
 
 /* To highlight bridges */
-way|z17-[highway][bridge] {
+way|z17-[bridge] {
   casing-color: #03fcf4;
   casing-width: 10;
   casing-opacity: 1;
 }
 
 /* To highlight tunnels */
-way|z17-[highway][tunnel] {
+way|z17-[tunnel] {
   casing-color: purple;
   casing-width: 10;
   casing-opacity: 1;
