@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<presets author="Snehit Tadepalli" shortdescription="Tagging Shortcut" icon="https://josm.openstreetmap.de/browser/trunk/resources/images/dialogs/propertiesdialog.svg?format=raw" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0">
+		<group name="Tagging Shortcut" icon="https://josm.openstreetmap.de/browser/trunk/resources/images/dialogs/propertiesdialog.svg?format=raw">
+			<!-- Road classifications -->
+			<group name="Road Classifications" icon="">
+				<item name="Track" type="way,closedway" icon="">
+					<key key="highway" value="track" />
+				</item>
+
+				<group name="Service">
+					<item name="Service" type="way,closedway" icon="">
+						<key key="highway" value="service" />
+					</item>
+
+					<item name="Service-Parking-Aisle" type="way,closedway" icon="">
+						<key key="highway" value="service" />
+						<key key="service" value="parking_aisle" />
+					</item>
+
+					<item name="Service-Alley" type="way,closedway" icon="">
+						<key key="highway" value="service" />
+						<key key="service" value="alley" />
+					</item>
+
+					<item name="Service-Drive-Through" type="way,closedway" icon="">
+						<key key="highway" value="service" />
+						<key key="service" value="drive-through" />
+					</item>
+
+					<item name="Service-Driveway" type="way,closedway" icon="">
+						<key key="highway" value="service" />
+						<key key="service" value="driveway" />
+					</item>
+				</group>
+
+				<item name="Residential" type="way,closedway" icon="">
+					<key key="highway" value="residential" />
+				</item>
+
+				<item name="Unclassified" type="way,closedway" icon="">
+					<key key="highway" value="unclassified" />
+				</item>
+
+				<item name="Tertiary" type="way,closedway" icon="">
+					<key key="highway" value="tertiary" />
+				</item>
+
+				<item name="Secondary" type="way,closedway" icon="">
+					<key key="highway" value="secondary" />
+				</item>
+
+				<item name="Primary" type="way,closedway" icon="">
+					<key key="highway" value="primary" />
+				</item>
+
+				<item name="Trunk" type="way,closedway" icon="">
+					<key key="highway" value="trunk" />
+				</item>
+
+				<item name="Motorway" type="way,closedway" icon="">
+					<key key="highway" value="motorway" />
+				</item>
+			</group>
+
+			<!-- Link Classification -->
+			<group name="Link-Classification" icon="">
+				<item name="Tertiary-Link" type="way,closedway" icon="">
+					<key key="highway" value="tertiary_link" />
+				</item>
+
+				<item name="Secondary-Link" type="way,closedway" icon="">
+					<key key="highway" value="secondary_link" />
+				</item>
+
+				<item name="Primary-Link" type="way,closedway" icon="">
+					<key key="highway" value="primary_link" />
+				</item>
+
+				<item name="Trunk-Link" type="way,closedway" icon="">
+					<key key="highway" value="trunk_link" />
+				</item>
+
+				<item name="Motorway-Link" type="way,closedway" icon="">
+					<key key="highway" value="motorway_link" />
+				</item>
+			</group>
+
+			<!-- Bridge & Tunnel -->
+			<group name="Elevation" icon="">
+				<item name="Bridge" type="way" icon="">
+					<key key="bridge" value="yes" />
+					<key key="layer" value="1" />
+					<key key="tunnel" value="" />
+				</item>
+
+				<group name="Tunnel">
+					<item name="Tunnel-Yes" type="way" icon="">
+						<key key="tunnel" value="yes" />
+						<key key="layer" value="-1" />
+						<key key="bridge" value="" />
+					</item>
+
+					<item name="Culvert" type="way" icon="">
+						<key key="tunnel" value="culvert" />
+						<key key="layer" value="-1" />
+						<key key="bridge" value="" />
+					</item>
+				</group>
+			</group>
+
+			<!-- Barriers -->
+			<group name="Barriers" icon="">
+				<item name="Gate" type="node" icon="">
+					<key key="barrier" value="gate" />
+				</item>
+
+				<item name="Cattle-Grid" type="node" icon="">
+					<key key="barrier" value="cattle_grid" />
+				</item>
+
+				<item name="Fence" type="node" icon="">
+					<key key="barrier" value="fence" />
+				</item>
+
+				<item name="Wall" type="node" icon="">
+					<key key="barrier" value="wall" />
+				</item>
+
+				<item name="Block" type="node" icon="">
+					<key key="barrier" value="block" />
+				</item>
+
+				<item name="Entrance" type="node" icon="">
+					<key key="barrier" value="entrance" />
+				</item>
+
+				<item name="Barrier-Yes" type="node" icon="">
+					<key key="barrier" value="yes" />
+				</item>
+
+				<item name="Toll-Booth" type="node" icon="">
+					<key key="barrier" value="toll_booth" />
+				</item>
+
+				<item name="Bollard" type="node" icon="">
+					<key key="barrier" value="bollard" />
+				</item>
+
+				<item name="Jersey-Barrier" type="node" icon="">
+					<key key="barrier" value="jersey_barrier" />
+				</item>
+
+				<item name="Kerb" type="node" icon="">
+					<key key="barrier" value="kerb" />
+				</item>
+			</group>
+
+			<!-- Extended Layers -->
+			<group name="Layers" icon="">
+				<item name="Layer -5" type="way" icon="">
+					<key key="layer" value="-5" />
+				</item>
+
+				<item name="Layer -4" type="way" icon="">
+					<key key="layer" value="-4" />
+				</item>
+
+				<item name="Layer -3" type="way" icon="">
+					<key key="layer" value="-3" />
+				</item>
+
+				<item name="Layer -2" type="way" icon="">
+					<key key="layer" value="-2" />
+				</item>
+
+				<item name="Layer 2" type="way" icon="">
+					<key key="layer" value="2" />
+				</item>
+
+				<item name="Layer 3" type="way" icon="">
+					<key key="layer" value="3" />
+				</item>
+
+				<item name="Layer 4" type="way" icon="">
+					<key key="layer" value="4" />
+				</item>
+
+				<item name="Layer 5" type="way" icon="">
+					<key key="layer" value="5" />
+				</item>
+			</group>
+
+			<!-- Surface -->
+			<group name="Surface" icon="">
+				<item name="Paved" type="way" icon="">
+					<key key="surface" value="paved" />
+				</item>
+
+				<item name="Unpaved" type="way" icon="">
+					<key key="surface" value="unpaved" />
+				</item>
+
+				<item name="Asphalt" type="way" icon="">
+					<key key="surface" value="asphalt" />
+				</item>
+			</group>
+
+			<!-- Oneway -->
+			<group name="Oneway" icon="">
+				<item name="Yes" icon="">
+					<key key="oneway" value="yes" />
+				</item>
+
+				<item name="No" icon="">
+					<key key="oneway" value="no" />
+				</item>
+			</group>
+
+			<!-- Relation -->
+			<group name="Relation" icon="">
+				<group name="Restriction" icon="">
+					<item name="No-Left-Turn" type="relation" icon="">
+						<key key="type" value="restriction" />
+						<key key="restriction" value="no_left_turn" />
+					</item>
+
+					<item name="Only-Left-Turn" type="relation" icon="">
+						<key key="type" value="restriction" />
+						<key key="restriction" value="only_left_turn" />
+					</item>
+
+					<item name="No-Right-Turn" type="relation" icon="">
+						<key key="type" value="restriction" />
+						<key key="restriction" value="no_right_turn" />
+					</item>
+
+					<item name="Only-Right-Turn" type="relation" icon="">
+						<key key="type" value="restriction" />
+						<key key="restriction" value="only_right_turn" />
+					</item>
+
+					<item name="No-U-Turn" type="relation" icon="">
+						<key key="type" value="restriction" />
+						<key key="restriction" value="no_u_turn" />
+					</item>
+
+					<item name="No-Straight-On" type="relation" icon="">
+						<key key="type" value="restriction" />
+						<key key="restriction" value="no_straight_on" />
+					</item>
+
+					<item name="Only-Straight-On" type="relation" icon="">
+						<key key="type" value="restriction" />
+						<key key="restriction" value="only_straight_on" />
+					</item>
+				</group>
+
+				<group name="Boundary" icon="">
+					<item name="Administrative" type="relation" icon="">
+						<key key="type" value="boundary" />
+						<key key="boundary" value="administrative" />
+						<key key="admin_level" value="" />
+					</item>
+				</group>
+			</group>
+
+			<!-- Junctions -->
+			<group name="Junction" icon="">
+				<item name="Junction-Roundabout" type="way,closedway" icon="">
+					<key key="junction" value="roundabout" />
+				</item>
+
+				<item name="Junction-Circular" type="way,closedway" icon="">
+					<key key="junction" value="circular" />
+					<key key="oneway" value="yes" />
+				</item>
+
+				<item name="Mini-Roundabout" type="node" icon="">
+					<key key="highway" value="mini_roundabout" />
+				</item>
+			</group>
+
+			<!-- Extras -->
+			<group name="Extra-Tagging" icon="">
+				<item name="Covered-Yes" type="way" icon="">
+					<key key="covered" value="yes" />
+				</item>
+
+				<item name="Railway-Level-Crossing" type="node" icon="">
+					<key key="railway" value="level_crossing" />
+				</item>
+
+				<item name="Railway-Crossing" type="node" icon="">
+					<key key="railway" value="crossing" />
+				</item>
+
+				<item name="No-Exit" type="node" icon="">
+					<key key="noexit" value="yes" />
+				</item>
+			</group>
+		</group>
+</presets>
