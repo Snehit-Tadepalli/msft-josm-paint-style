@@ -65,7 +65,7 @@ meta {
 
 node|z18-.msft_user {
    	symbol-shape: triangle;
-   	symbol-size: 15;
+   	symbol-size: 12;
 	symbol-fill-color: yellow;
 }
 
@@ -73,7 +73,7 @@ node|z18-:selected.msft_user {
 	text-color: black;
   	text-halo-color: white;
   	text-halo-radius: 5;
-  	font-size: 15;
+  	font-size: 12;
 	font-weight: bold;
   	text-offset-x: 5;
   	symbol-fill-color: red;
@@ -82,8 +82,8 @@ node|z18-:selected.msft_user {
 
 way|z18-.msft_user {
     	casing-color: yellow;
-	casing-opacity: 0.75;
-    	casing-width: 10;
+	casing-opacity: 0.5;
+    	casing-width: 8;
     	casing-dashes: 0;
 }
 
