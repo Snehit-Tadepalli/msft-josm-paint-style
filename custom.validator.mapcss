@@ -1,7 +1,7 @@
 meta {
     	title: "Microsoft Validator";
 	author: "Snehit Tadepalli";
-    	version: "0.0.1";
+    	version: "1.0.0";
 	watch-modified: true;
     	description: "A map paint style for JOSM editor developed by Microsoft team which helps to highlight the edits of our editors.";
 }
@@ -62,16 +62,16 @@ meta {
 }
 
 node.msft_user {
-	throwWarning: tr("Nodes");
+	throwOther: tr("Nodes");
 	group: tr("Microsoft User Edits")
 }
 
 way.msft_user {
-	throwWarning: tr("Ways");
+	throwOther: tr("Ways");
 	group: tr("Microsoft User Edits")
 }
 
 relation.msft_user {
-	throwWarning: tr("Relations");
+	throwOther: tr("Relations");
 	group: tr("Microsoft User Edits")
 }
