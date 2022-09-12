@@ -62,16 +62,16 @@ meta {
 }
 
 node.msft_user {
-	throwOther: tr("Nodes");
+	throwWarning: tr("Nodes");
 	group: tr("Microsoft User Edits")
 }
 
 way.msft_user {
-	throwOther: tr("Ways");
+	throwWarning: tr("Ways");
 	group: tr("Microsoft User Edits")
 }
 
 relation.msft_user {
-	throwOther: tr("Relations");
+	throwWarning: tr("Relations");
 	group: tr("Microsoft User Edits")
 }
