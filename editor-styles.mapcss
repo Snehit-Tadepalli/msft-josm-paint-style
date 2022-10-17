@@ -477,6 +477,13 @@ way|z17-[tunnel] {
   casing-opacity: 1;
 }
 
+/*To highlight covered tags*/
+way|z17-[covered] {
+  casing-color: orange;
+  casing-width: 10;
+  casing-opacity: 1;
+}
+
 /********************************
  * Destination signs road labeling *
  ********************************/
